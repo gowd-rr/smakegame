@@ -1,9 +1,9 @@
 let snake;
 let apples = [];
 
-let w = 16;
-let h = 10;
-let cell = 100;
+let w = 18;
+let h = 13;
+let cell = 60;
 let offsetX = 0;
 let offsetY = 0;
 let interval = 300;
@@ -16,9 +16,9 @@ let paperTex;
 let renderSide = false;
 let imgBody, imgHead, imgEat, imgFood;
 
-let scaleBody = 0.43;
-let scaleHead = 0.4;
-let scaleFood = 0.45;
+let scaleBody = 0.38;
+let scaleHead = 0.32;
+let scaleFood = 0.35;
 
 function preload() {
   paperTex = loadImage("img/paper.jpg");
@@ -31,6 +31,9 @@ function preload() {
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
   // createCanvas(600, 300);
+
+  w = Math.floor(window.innerWidth / cell) - 1;
+  h = Math.floor(window.innerHeight / cell) - 1;
 
   offsetX = (width - w * cell) * 0.5;
   offsetY = (height - h * cell) * 0.5;
@@ -50,7 +53,7 @@ function draw() {
   image(bg, 0, 0);
 
   if (snake.play) {
-    snake.update(apples, interval, interval);
+    snake.update(apples, interval, rush);
   }
   apples.forEach((a) => {
     if (a.eaten) {
@@ -143,18 +146,22 @@ function keyReceived(keyIs) {
     switch (keyIs) {
       case '1':
       case 'a':
+      case 'ArrowLeft':
         snake.updateDir(2, interval);
         break;
       case '2':
       case 'b':
+      case 'ArrowRight':
         snake.updateDir(0, interval);
         break;
       case '3':
       case 'c':
+      case 'ArrowUp':
         snake.updateDir(3, interval);
         break;
       case '4':
       case 'd':
+      case 'ArrowDown':
         snake.updateDir(1, interval);
         break;
     }
@@ -162,18 +169,22 @@ function keyReceived(keyIs) {
     switch (keyIs) {
       case '1':
       case 'a':
+      case 'ArrowLeft':
         snake.updateDir(2, rush);
       break;
       case '2':
       case 'b':
+      case 'ArrowRight':
         snake.updateDir(0, rush);
       break;
       case '3':
       case 'c':
+      case 'ArrowUp':
         snake.updateDir(3, rush);
       break;
       case '4':
       case 'd':
+      case 'ArrowDown':
         snake.updateDir(1, rush);
       break;
     }
@@ -388,7 +399,8 @@ class Snake {
 
       push();
       imageMode(CENTER);
-      translate((bX + aX) * 0.5 * cell + _x, (bY + aY) * 0.5 * cell + _y);
+      // translate((bX + aX) * 0.5 * cell + _x, (bY + aY) * 0.5 * cell + _y);
+      translate(aX * cell + _x, aY * cell + _y);
 
       if (renderSide) {
         const dirX = bX - aX;
