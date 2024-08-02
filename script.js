@@ -85,7 +85,7 @@ function drawBG() {
 
   const radius = cell * 0.5;
 
-  bg.fill(50);
+  bg.fill(150);
   bg.noStroke();
   ctx.beginPath();
   ctx.moveTo(0, 0);
