@@ -6,8 +6,9 @@ let h = 13;
 let cell = 60;
 let offsetX = 0;
 let offsetY = 0;
-let interval = 300;
-let rush = 150;
+let intervalDefault = 300;
+let interval = intervalDefault;
+let rush = 140;
 
 let ctx;
 let bg;
@@ -53,7 +54,7 @@ function draw() {
   image(bg, 0, 0);
 
   if (snake.play) {
-    snake.update(apples, interval, rush);
+    snake.update(apples, interval, interval);
   }
   apples.forEach((a) => {
     if (a.eaten) {
@@ -186,6 +187,15 @@ function keyReceived(keyIs) {
       case 'd':
       case 'ArrowDown':
         snake.updateDir(1, rush);
+      break;
+      case '5':
+      case 'e':
+      case ' ':
+        if (interval !== intervalDefault) {
+          interval = intervalDefault;
+        } else {
+          interval = rush;
+        }
       break;
     }
   }
@@ -440,7 +450,12 @@ class Snake {
             scale(sclH);
           }
         } else {
-          rotate(this.dirNew * HALF_PI);
+          // rotate(this.dirNew * HALF_PI);
+          let x1 = Math.cos(this.dirNew * HALF_PI) * this.ratio;
+          let y1 = Math.sin(this.dirNew * HALF_PI) * this.ratio;
+          let x2 = Math.cos(this.dir * HALF_PI) * (1 - this.ratio);
+          let y2 = Math.sin(this.dir * HALF_PI) * (1 - this.ratio);
+          rotate(Math.atan2(y2 + y1, x2 + x1));
           scale(sclH);
         }
         if (this.eating) {
