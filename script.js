@@ -3,7 +3,7 @@ let apples = [];
 
 let w = 18;
 let h = 13;
-let cell = 60;
+let cell = 50;
 let offsetX = 0;
 let offsetY = 0;
 let intervalDefault = 300;
@@ -17,9 +17,9 @@ let paperTex;
 let renderSide = false;
 let imgBody, imgHead, imgEat, imgFood;
 
-let scaleBody = 0.38;
-let scaleHead = 0.32;
-let scaleFood = 0.35;
+let scaleBody = 0.35;
+let scaleHead = 0.30;
+let scaleFood = 0.33;
 
 function preload() {
   paperTex = loadImage("img/paper.jpg");
