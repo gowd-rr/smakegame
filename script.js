@@ -44,7 +44,8 @@ function setup() {
     keyReceived(e.key);
   });
 
-  document.querySelector("body").addEventListener("click", (e) => {
+  document.querySelector("body").addEventListener("mousedown", (e) => {
+    console.log(e);
     clickReceived(e);
   });
 
