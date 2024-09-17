@@ -44,9 +44,8 @@ function setup() {
     keyReceived(e.key);
   });
 
-  document.querySelector("body").addEventListener("mousedown", (e) => {
-    console.log(e);
-    clickReceived(e);
+  document.querySelector("body").addEventListener("touchstart", (e) => {
+    clickReceived(e.touches[0]);
   });
 
   drawBG();
