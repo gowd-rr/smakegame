@@ -44,6 +44,10 @@ function setup() {
     keyReceived(e.key);
   });
 
+  document.querySelector("body").addEventListener("click", (e) => {
+    clickReceived(e);
+  });
+
   drawBG();
 
   resetGame();
@@ -139,6 +143,30 @@ function resetGame() {
   apples.forEach((a) => {
     a.randomPosition([snake], w, h);
   });
+}
+
+function clickReceived(e) {
+  const cx = e.clientX / window.innerWidth - 0.5;
+  const cy = e.clientY / window.innerHeight - 0.5;
+  const angle = Math.floor(((Math.atan2(cy, cx) / Math.PI * 180 + 225) % 360) / 90);
+  console.log(angle);
+  if (!snake.play) {
+    snake.restart();
+  }
+  switch (angle) {
+    case 0:
+      snake.updateDir(2, interval);
+      break;
+    case 1:
+      snake.updateDir(3, interval);
+      break;
+    case 2:
+      snake.updateDir(0, interval);
+      break;
+    case 3:
+      snake.updateDir(1, interval);
+      break;
+  }
 }
 
 function keyReceived(keyIs) {
